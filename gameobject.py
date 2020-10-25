@@ -1,5 +1,3 @@
-import random
-
 class GameObject:
     scr_width = None
     scr_height = None
@@ -9,8 +7,8 @@ class GameObject:
         self.pos = im.get_rect().move(x,y)
         self.speed_x = vx
         self.speed_y = vy
-        self.scr_width = scr_size[0]
-        self.scr_height = scr_size[1]
+        GameObject.scr_width = scr_size[0]
+        GameObject.scr_height = scr_size[1]
 
     def move(self):
         raise NotImplementedError
@@ -34,3 +32,29 @@ class Paddle(GameObject):
         if dir == -1 or dir == 0 or dir == 1:
             self.dir = dir
 
+
+class Ball(GameObject):
+
+    def __init__(self, im, x, y, vx, vy, scr_size):
+        super().__init__(im, x, y, vx, vy, scr_size)
+
+    def move(self):
+        self.pos = self.pos.move(self.speed_x, self.speed_y)
+        if self.pos.bottom > self.scr_height:
+            self.speed_y *= -1
+            self.pos.bottom = self.scr_height
+        elif self.pos.top < 0:
+            self.speed_y *= -1
+            self.pos.top = 0
+        elif self.pos.right > self.scr_width:
+            self.speed_x *= -1
+            self.pos.right = self.scr_width
+        elif self.pos.left < 0:
+            self.speed_x *= -1
+            self.pos.left = 0
+
+
+    def reset(self):
+        self.pos.center = (self.scr_width // 2, self.scr_height // 2)
+        self.speed_x = 1
+        self.speed_y = 1
