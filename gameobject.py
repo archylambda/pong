@@ -1,3 +1,5 @@
+from random import choice
+
 class GameObject:
     scr_width = None
     scr_height = None
@@ -40,10 +42,7 @@ class Ball(GameObject):
 
     def move(self):
         self.pos = self.pos.move(self.speed_x, self.speed_y)
-        if self.pos.bottom > self.scr_height:
-            self.speed_y *= -1
-            self.pos.bottom = self.scr_height
-        elif self.pos.top < 0:
+        if self.pos.top < 0:
             self.speed_y *= -1
             self.pos.top = 0
         elif self.pos.right > self.scr_width:
@@ -54,7 +53,13 @@ class Ball(GameObject):
             self.pos.left = 0
 
 
+    def revSpeed(self):
+        self.speed_y *= -1
+
+    def IsOffside(self):
+        return self.pos.bottom > self.scr_height
+
     def reset(self):
         self.pos.center = (self.scr_width // 2, self.scr_height // 2)
-        self.speed_x = 1
+        self.speed_x = choice([-1, 1])
         self.speed_y = 1

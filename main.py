@@ -2,7 +2,7 @@ import sys, pygame
 from gameobject import *
 
 
-PADDLE_VEL = 1
+PADDLE_VEL = 4
 BALL_VEL = 1
 SIZE = WIDTH, HEIGHT = 800, 600
 BLACK_C = 0, 0, 0
@@ -37,10 +37,18 @@ while True:
     player.move()
     ball.move()
 
+    if player.pos.colliderect(ball.pos):
+        ball.revSpeed()
+
+    if ball.IsOffside():
+        ball.reset()
+
     screen.fill(BLACK_C)
     screen.blit(player.image, player.pos)
     screen.blit(ball.image, ball.pos)
     pygame.display.flip()
+
+    pygame.time.delay(2)
 
 
 
