@@ -24,44 +24,13 @@ class Paddle(GameObject):
 
     def move(self):
         self.pos = self.pos.move(0, self.speed_y * self.dir)
-        if self.pos.bottom > self.scr_height:
-            self.pos.bottom = self.scr_height
-        elif self.pos.top < 0:
-            self.pos.top = 0;
+        if self.pos.right > self.scr_width:
+            self.pos.right = self.scr_width
+        elif self.pos.left < 0:
+            self.pos.left = 0;
 
 
     def set_dir(self, dir):
         if dir == -1 or dir == 0 or dir == 1:
             self.dir = dir
 
-
-class Ball(GameObject):
-
-    def __init__(self, im, x, y, vx, vy, scr_size):
-        super().__init__(im, x, y, vx, vy, scr_size)
-
-    def move(self):
-        self.pos = self.pos.move(self.speed_x, self.speed_y)
-        if self.pos.bottom > self.scr_height:
-            self.speed_y *= -1
-            self.pos.bottom = self.scr_height
-        elif self.pos.top < 0:
-            self.speed_y *= -1
-            self.pos.top = 0
-
-    def revSpeed(self):
-        self.speed_x *= -1
-
-    def isOffside(self):
-        """return winner player or 0 """
-        if self.pos.right > self.scr_width:
-            return 1
-        if self.pos.left < 0:
-            return 2;
-        return 0
-
-    def reset(self):
-        self.pos.center = (self.scr_width // 2, self.scr_height // 2)
-        speed = [-1, 1]
-        self.speed_x = random.choice(speed)
-        self.speed_y = random.choice(speed)
