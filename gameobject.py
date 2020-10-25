@@ -18,12 +18,12 @@ class GameObject:
 
 class Paddle(GameObject):
 
-    def __init__(self, im, x, y, vy, scr_size):
-        super().__init__(im, x, y, 0, vy, scr_size)
+    def __init__(self, im, x, y, vx, scr_size):
+        super().__init__(im, x, y, vx, 0, scr_size)
         self.dir = 0
 
     def move(self):
-        self.pos = self.pos.move(0, self.speed_y * self.dir)
+        self.pos = self.pos.move(self.speed_x * self.dir, 0)
         if self.pos.right > self.scr_width:
             self.pos.right = self.scr_width
         elif self.pos.left < 0:
