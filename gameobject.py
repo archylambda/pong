@@ -63,3 +63,15 @@ class Ball(GameObject):
         self.pos.center = (self.scr_width // 2, self.scr_height // 2)
         self.speed_x = choice([-1, 1])
         self.speed_y = 1
+
+class Block(GameObject):
+
+    def __init__(self, im, x, y, scr_size):
+        super().__init__(im, x, y, 0, 0, scr_size)
+        self.__isDestroyed = False
+
+    def destroy(self):
+        self.__isDestroyed = True
+
+    def isDestroyed(self):
+        return self.__isDestroyed
