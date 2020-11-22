@@ -53,16 +53,16 @@ class Ball(GameObject):
             self.pos.left = 0
 
 
-    def revSpeed(self):
+    def rev_speed(self):
         self.speed_y *= -1
 
-    def IsOffside(self):
+    def is_offside(self):
         return self.pos.bottom > self.scr_height
 
-    def reset(self):
+    def reset(self, speed):
         self.pos.center = (self.scr_width // 2, self.scr_height // 2)
-        self.speed_x = choice([-1, 1])
-        self.speed_y = 1
+        self.speed_x = choice([-speed, speed])
+        self.speed_y = speed
 
 class Block(GameObject):
 
@@ -73,5 +73,5 @@ class Block(GameObject):
     def destroy(self):
         self.__isDestroyed = True
 
-    def isDestroyed(self):
+    def is_destroyed(self):
         return self.__isDestroyed
